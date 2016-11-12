@@ -1,0 +1,69 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass";
+
+
+//Attribute
+$fontSize: 20px;
+$width: 125px;
+$height: 40px;
+$boxColor: #12A65C;
+$boxHover: lighten($boxColor, 5%);
+$textColor: white;
+$boxShadow: rgba(0, 0, 0, 0.4); //the color rgb + opacity
+
+//mixin function
+@mixin center($width, $height) {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: $width;
+	height: $height;
+	margin-top: (-$height)/2;
+	margin-left: (-$width)/2;
+}
+
+//Placeholder
+%html {
+	width: 100%;
+	height: 100%;
+}
+
+//HTML
+body {
+	@extend %html;
+	font-family: sans-serif;
+}
+
+.button {
+	display: block;
+	font-size: $fontSize;
+	text-align: center;
+	line-height: $height;
+	text-decoration: none;
+	color: $textColor;
+	background-color: $boxColor;
+	border-radius: 4px;
+	@include center($width, $height);
+	@include text-shadow(0 -1px -1px darken($boxColor, 10%));
+	@include box-shadow(
+		0 4px 0 darken($boxColor, 10%),
+		0 5px 5px 1px $boxShadow);
+	@include transition(all 0.15s ease-in-out); //transition(width duration time-function) 
+
+	&:hover {
+		background-color: $boxHover;
+		@include text-shadow(0 -1px -1px darken($boxHover, 10%));
+		@include box-shadow(
+			0 4px 0 darken($boxHover, 10%),
+			0 5px 5px 1px $boxShadow);
+	}
+
+	&:active {
+		margin-top: (-$height)/2 +4;
+		@include box-shadow(none);
+	}
+}
